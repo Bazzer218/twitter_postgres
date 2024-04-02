@@ -9,10 +9,9 @@ test-data.zip
 
 echo 'load normalized'
 for file in $files; do
-    cat test-data.zip | sed 's/\\u0000//g' | psql postgresql://postgres:pass@localhost:1333/postgres -c "COPY tweets_jsonb (data) FROM STDIN csv quote e'\x01' delimiter e'\x02';"
 done
 
 echo 'load denormalized'
 for file in $files; do
-    # use SQL's COPY command to load data into pg_denormalized
+    cat example.jsonl | sed 's/\\u0000//g' | psql postgresql://postgres:pass@localhost:1333/postgres -c "COPY tweets_jsonb (data) FROM STDIN csv quote e'\x01' delimiter e'\x02';"
 done
